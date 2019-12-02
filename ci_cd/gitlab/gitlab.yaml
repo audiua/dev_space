@@ -22,7 +22,6 @@ services:
       dev_space:
         ipv4_address: "172.20.0.11"
 
-
   gitlab_runner:
     image: gitlab/gitlab-runner:latest
     container_name: gitlab_runner
@@ -37,8 +36,6 @@ services:
     networks:
       dev_space:
         ipv4_address: "172.20.0.12"
-
-
 
 networks:
   dev_space:

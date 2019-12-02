@@ -38,7 +38,6 @@ services:
       dev_space:
         ipv4_address: "172.20.0.16"
 
-
 networks:
   dev_space:
     ipam:
