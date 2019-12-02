@@ -1,0 +1,39 @@
+version: 3.7
+
+services:
+
+  postgres:
+    # TODO add init command - create user, add grants, create db
+    image: postgres:10
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      - POSRGRES_USER=${POSTGRES_USER:-postgres}
+      - POSRGRES_PASSWORD=${POSRGRES_PASSWORD:-postgres}
+      - POSRGRES_DB=${POSRGRES_DB:-common}
+    ports:
+      - "5432:5432"
+    volumes:
+      # TODO add config file
+      - postgres:/var/lib/postgresql/data
+    networks:
+      dev_space:
+        ipv4_address: "172.20.0.15"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "5050:5050"
+    environment:
+      PGADMIN_DEFAULT_EMAIL:${PGADMIN_DEFAULT_EMAIL:-kostia.tarnashynskyi@gmail.com}
+      PGADMIN_DEFAULT_EMAIL:${PGADMIN_DEFAULT_PASSWORD:-pgadmin}
+    volumes:
+      - pgadmin_root:/root/.pgadmin
+      - pgadmin_var:/var/lib/pgadmin
+    networks:
+      dev_space:
+        ipv4_address: "172.20.0.16"

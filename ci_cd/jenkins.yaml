@@ -20,7 +20,7 @@ networks:
     ipam:
       driver: default
       config:
-        -subnet: "172.20.0.0"
+        - subnet: "172.20.0.0"
 
 volumes:
   jenkins:
