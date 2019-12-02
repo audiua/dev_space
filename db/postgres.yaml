@@ -37,3 +37,17 @@ services:
     networks:
       dev_space:
         ipv4_address: "172.20.0.16"
+
+
+networks:
+  dev_space:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.20.0.0"
+
+volumes:
+  pgadmin_root:
+  pgadmin_var:
+  postgres:
+
