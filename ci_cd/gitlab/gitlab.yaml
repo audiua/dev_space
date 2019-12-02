@@ -1,0 +1,51 @@
+version: 3.7
+
+services:
+
+  gitlab:
+    # config external url
+    # @see ./gitlab_config_tips.rst
+    # @see ./gitlab_config.rb
+
+    image: gitpab/gitlab-ce:latest
+    container_name: gitlab
+    restart: unless-stopped
+    ports:
+      - "8011:80"
+      - "8012:22"
+      - "80131:4567"
+    volumes:
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/log:/var/log/gitlab
+      - gitlab:/var/opt/gitlab
+    networks:
+      dev_space:
+        ipv4_address: "172.20.0.11"
+
+
+  gitlab_runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab_runner
+    restart: unless-stopped
+#    environment:
+#      - DEBUG: true
+    depends_on:
+      - gitlab
+    volumes:
+      - ./gitlab/runner_config:/etc/gitlab-runner:Z
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      dev_space:
+        - ipv4_address: "172.20.0.12"
+
+
+
+networks:
+  dev_space:
+    ipam:
+      driver: default
+      config:
+        -subnet: "172.20.0.0"
+
+volumes:
+  gitlab:
