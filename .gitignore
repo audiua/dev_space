@@ -2,3 +2,5 @@ venv
 .idea
 
 /ci_cd/gitlab/log/
+/localstack/terraform/.terraform/
+/localstack/terraform/terraform.tfstate
