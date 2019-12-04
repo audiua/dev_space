@@ -2,3 +2,6 @@
 aws --endpoint-url=http://localhost:4572 s3 mb s3://mytestbucket
 
 aws --endpoint-url=http://localhost:4572 s3 ls
+
+
+aws s3 cp /path/to/file.txt s3://bucketname
